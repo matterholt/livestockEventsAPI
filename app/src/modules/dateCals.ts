@@ -1,4 +1,5 @@
 // used for any date related actions
+import { z } from "zod";
 import { Temporal, Intl, toTemporalInstant } from "@js-temporal/polyfill";
 // Date.prototype.toTemporalInstant = toTemporalInstant;
 //
@@ -30,6 +31,12 @@ function calculateTheDateFrom(definedDate: string, data: sampleData[]) {
   });
 
   return results;
+}
+
+export function isInProperFormat(dateToCheck: string) {
+  const properDate = z.string().date();
+  // HOW TO HAND ERROR SO USER KNOW HOW TO WORK IT, ZOD
+  return properDate.parse(dateToCheck);
 }
 
 export { calculateTheDateFrom, formatToday };
