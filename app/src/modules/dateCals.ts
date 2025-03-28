@@ -33,10 +33,14 @@ function calculateTheDateFrom(definedDate: string, data: sampleData[]) {
   return results;
 }
 
-export function isInProperFormat(dateToCheck: string) {
+function isInProperFormat(dateToCheck?: string) {
   const properDate = z.string().date();
   // HOW TO HAND ERROR SO USER KNOW HOW TO WORK IT, ZOD
-  return properDate.parse(dateToCheck);
+  const result = properDate.safeParse(dateToCheck);
+  if (!result.success) {
+    return "error";
+  }
+  return result;
 }
 
-export { calculateTheDateFrom, formatToday };
+export { isInProperFormat, calculateTheDateFrom, formatToday };
