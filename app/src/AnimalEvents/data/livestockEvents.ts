@@ -8,7 +8,7 @@ const livestockEvents = [
     days: 0 + 146,
     type: "gestation",
   },
-  { species: "sheep", event: "end lambing", days: 30 + 146, type: "gestation" },
+  { species: "sheep", event: "end lambing", days: 30 + 146, type: "" },
   { species: "cow", event: "Gestation Period", days: 283, type: "gestation" },
   { species: "pig", event: "Gestation Period", days: 114, type: "gestation" },
   { species: "sheep", event: "birth of lamb", days: 0, type: "newborn" },

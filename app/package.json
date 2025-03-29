@@ -2,7 +2,8 @@
   "name": "app",
   "scripts": {
     "dev": "wrangler dev",
-    "deploy": "wrangler deploy --minify"
+    "deploy": "wrangler deploy --minify",
+        "test": "vitest"
   },
   "dependencies": {
     "@js-temporal/polyfill": "^0.4.4",
@@ -10,7 +11,9 @@
     "zod": "^3.24.2"
   },
   "devDependencies": {
+    "@cloudflare/vitest-pool-workers": "^0.8.8",
     "@cloudflare/workers-types": "^4.20250214.0",
+    "vitest": "3.0.9",
     "wrangler": "^3.109.2"
   }
 }

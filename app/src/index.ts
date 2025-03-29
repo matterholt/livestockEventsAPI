@@ -9,4 +9,20 @@ app.get("/", (c) => {
   return c.text("Hello Hono!");
 });
 
+app.get("/test", (c) => {
+  return c.text("Many posts");
+});
+
+app.post("/test", (c) => {
+  return c.json(
+    {
+      message: "Created",
+    },
+    201,
+    {
+      "X-Custom": "Thank you",
+    },
+  );
+});
+
 export default app;
