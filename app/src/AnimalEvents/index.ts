@@ -1,7 +1,11 @@
 import { Hono } from "hono";
 import { HTTPException } from "hono/http-exception";
 
-import { getEventType, getEventByAnimal } from "./dbActions/localData";
+import {
+  getEventType,
+  getEventByAnimal,
+  filterOutThings,
+} from "./dbActions/localData";
 import {
   isInProperFormat,
   formatToday,
@@ -10,46 +14,20 @@ import {
 
 const livestockEvent = new Hono();
 
-// since this is all going to be the similar eventType,
-// wonder should cache or store data global so
-// would have to check thou
-livestockEvent.get("/:eventType", (c) => {
-  const selectEvent = c.req.param("eventType");
-  const queryEvent = getEventType(selectEvent);
-
-  if (queryEvent.length === 0) {
-    throw new HTTPException(400, {
-      message: `no event of ${selectEvent} defined`,
-    });
-  }
-
-  return c.json(queryEvent);
+livestockEvent.get(":animal", (c) => {
+  const urlAnimal = c.req.param("animal");
+  const eventSelectAnimal = filterOutThings({ species: urlAnimal });
+  return c.json(eventSelectAnimal);
 });
 
-livestockEvent.get("/:eventType/:animal", (c) => {
-  const { eventType, animal } = c.req.param();
-  const eventsByAnimal = getEventByAnimal(animal, eventType);
-
-  if (eventsByAnimal.length === 0) {
-    throw new HTTPException(400, {
-      message: `no animal of ${animal} defined`,
-    });
-  }
-
-  const dateToSet = c.req.query("setDate");
-  if (dateToSet === undefined) {
-    return c.json(eventsByAnimal);
-  }
-  const properDate = isInProperFormat(dateToSet);
-
-  if (properDate == "error") {
-    throw new HTTPException(400, {
-      message: `wrong format provided ${dateToSet} => YYYY-MM-DD`,
-    });
-  }
-  const datesWithEvents = calculateTheDateFrom(properDate.data, eventsByAnimal);
-
-  return c.json(datesWithEvents);
+livestockEvent.get(":animal/:eventType", (c) => {
+  const urlAnimal = c.req.param("animal");
+  const urlEventType = c.req.param("eventType");
+  const eventSelectAnimal = filterOutThings({
+    species: urlAnimal,
+    type: urlEventType,
+  });
+  return c.json(eventSelectAnimal);
 });
 
 export { livestockEvent };
