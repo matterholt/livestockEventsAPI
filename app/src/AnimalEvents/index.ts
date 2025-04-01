@@ -1,5 +1,4 @@
 import { Hono } from "hono";
-import { HTTPException } from "hono/http-exception";
 
 import {
   getEventType,
@@ -28,6 +27,19 @@ livestockEvent.get(":animal/:eventType", (c) => {
     type: urlEventType,
   });
   return c.json(eventSelectAnimal);
+});
+
+livestockEvent.get(":animal/:eventType/date", (c) => {
+  const urlAnimal = c.req.param("animal");
+  const urlEventType = c.req.param("eventType");
+  const eventSelectAnimal = filterOutThings({
+    species: urlAnimal,
+    type: urlEventType,
+  });
+  const queryDate = c.req.query("setDate") ?? formatToday();
+  const results = calculateTheDateFrom(queryDate, eventSelectAnimal);
+
+  return c.json(results);
 });
 
 export { livestockEvent };

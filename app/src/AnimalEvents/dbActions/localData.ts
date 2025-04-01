@@ -8,31 +8,27 @@ export function getEventByAnimal(animal: string, theEvent: string) {
   const filteredEvent = getEventType(theEvent);
   return filteredEvent.filter((x) => x.species === animal);
 }
-/*
-keyValues ={
-type: "gestation"
-species:"sheep"
-}
-*/
 
-export function filterOutThings(keyValues) {
-  const keysOnly = Object.keys(keyValues);
-  const results = new Set();
-  // const results = livestockEvents.filter((x) => {
-  //   for (let key of keysOnly) {
-  //     console.log("GETTKEY", key);
-  //     console.log("GETTIT", `${x[key]} === ${keyValues[key]}`);
-  //     return x[key] === keyValues[key];
-  //   }
-  // });
-  //
+type LivestockEvent = {
+  type: string;
+  species: string;
+};
+
+export function filterOutThings(keyValues: Partial<LivestockEvent>) {
+  const keysOnly = Object.keys(keyValues) as (keyof LivestockEvent)[];
+  const results = new Set<LivestockEvent>();
+
   for (const event of livestockEvents) {
+    const evaluation = [];
     for (const key of keysOnly) {
-      console.log("key", key);
-      console.log("incomin", keyValues[key]);
-      console.log("store", event[key]);
+      if (keyValues[key] === event[key]) {
+        evaluation.push(true);
+      }
+    }
+    if (evaluation.length === keysOnly.length) {
+      results.add(event);
     }
   }
 
-  return results;
+  return [...results];
 }

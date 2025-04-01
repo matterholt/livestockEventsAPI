@@ -20,7 +20,10 @@ function formatToday() {
   return Temporal.Now.plainDateISO().toString();
 }
 
-function calculateTheDateFrom(definedDate: string, data: sampleData[]) {
+function calculateTheDateFrom(
+  definedDate: string,
+  data: sampleData[],
+): dataWithDate[] {
   const theDate = Temporal.PlainDate.from(definedDate);
 
   const results = data.map((i) => {
