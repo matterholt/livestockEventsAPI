@@ -9,7 +9,7 @@ import {
   isInProperFormat,
   formatToday,
   calculateTheDateFrom,
-} from "../modules/dateCals";
+} from "../../modules/dateCals";
 
 const livestockEvent = new Hono();
 

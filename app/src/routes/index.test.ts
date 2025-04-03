@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 
-import { livestockEvent } from "./index";
+import routes from "./index";
 
 interface EventTypeItem {
   type: string;
@@ -25,7 +25,11 @@ const mostCurrentDate = () => {
 
 describe("check only specific animal", () => {
   it("GETS /:animals", async () => {
-    const res = await livestockEvent.request("/sheep");
+    const res = await routes.request("/api/v1/sheep", {
+      headers: new Headers({
+        "X-API-Key": "your-api-key-1",
+      }),
+    });
     const results = (await res.json()) as EventTypeItem[];
 
     expect(res.status).toBe(200);
@@ -38,7 +42,11 @@ describe("check only specific animal", () => {
 
 describe("selected animal along with events to target", () => {
   it("GETS /:animals/:eventType", async () => {
-    const res = await livestockEvent.request("/sheep/gestation");
+    const res = await routes.request("/api/v1/sheep/gestation", {
+      headers: new Headers({
+        "X-API-Key": "your-api-key-1",
+      }),
+    });
     const results = (await res.json()) as EventTypeItem[];
 
     expect(res.status).toBe(200);
@@ -55,7 +63,11 @@ describe("selected animal along with events to target", () => {
 
 describe("takes the data structure and adds dates", () => {
   it("GETS /:animals/:eventType/date", async () => {
-    const res = await livestockEvent.request("/sheep/gestation/date");
+    const res = await routes.request("/api/v1/sheep/gestation/date", {
+      headers: new Headers({
+        "X-API-Key": "your-api-key-1",
+      }),
+    });
     const results = (await res.json()) as DataWithDate[];
 
     expect(res.status).toBe(200);
@@ -78,9 +90,15 @@ describe("takes the data structure and adds dates", () => {
   });
 
   it("GETS /:animals/:eventType/date?with setdate query", async () => {
-    const res = await livestockEvent.request(
-      "/sheep/gestation/date?setDate=2025-01-02",
+    const res = await routes.request(
+      "/api/v1/sheep/gestation/date?setDate=2025-01-02",
+      {
+        headers: new Headers({
+          "X-API-Key": "your-api-key-1",
+        }),
+      },
     );
+
     const results = (await res.json()) as DataWithDate[];
 
     expect(res.status).toBe(200);
