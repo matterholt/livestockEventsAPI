@@ -4,7 +4,8 @@ import {
   getEventType,
   getEventByAnimal,
   filterOutThings,
-} from "./dbActions/localData";
+} from "../../modules/dbActions/localData";
+
 import {
   isInProperFormat,
   formatToday,

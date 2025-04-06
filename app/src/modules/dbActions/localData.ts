@@ -1,5 +1,4 @@
-import { livestockEvent } from "..";
-import { livestockEvents } from "../data/livestockEvents";
+import { livestockEvents } from "../../data/livestockEvents";
 
 export function getEventType(theEvent: string) {
   return livestockEvents.filter((x) => x.type === theEvent);

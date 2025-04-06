@@ -11,11 +11,17 @@ const livestockEvents = [
   { species: "sheep", event: "end lambing", days: 30 + 146, type: "gestation" },
   { species: "cow", event: "Gestation Period", days: 283, type: "gestation" },
   { species: "pig", event: "Gestation Period", days: 114, type: "gestation" },
+
   { species: "sheep", event: "birth of lamb", days: 0, type: "newborn" },
   { species: "sheep", event: "start on creep feed", days: 11, type: "newborn" },
   { species: "sheep", event: "wean lambs", days: 53, type: "newborn" },
   { species: "sheep", event: "sell culls", days: 69, type: "newborn" },
-  { species: "sheep", event: "sheer lambs", days: 90, type: "newborn" },
+  {
+    species: "sheep",
+    event: "begin finisher rations",
+    days: 82,
+    type: "newborn",
+  },
 ];
 
 export { livestockEvents };
